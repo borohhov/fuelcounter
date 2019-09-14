@@ -1,4 +1,7 @@
-package com.swed.fuelcounter.entity;
+package com.swed.fuelcounter.dto;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.swed.fuelcounter.entity.FuelType;
 
 import java.sql.Timestamp;
 
@@ -9,11 +12,12 @@ public interface MonthConsumptionDTO {
 
     float getVolume();
 
+    @JsonFormat(pattern="yyyy-MM-dd")
+    Timestamp getDate();
+
     float getPrice();
 
     float getAmount();
-
-    Timestamp getDate();
 
     int getDriverId();
 

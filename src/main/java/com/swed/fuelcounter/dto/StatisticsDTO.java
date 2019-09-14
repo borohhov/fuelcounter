@@ -1,4 +1,7 @@
-package com.swed.fuelcounter.entity;
+package com.swed.fuelcounter.dto;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.swed.fuelcounter.entity.FuelType;
 
 public interface StatisticsDTO {
   /* statistics for each month,
@@ -12,4 +15,7 @@ public interface StatisticsDTO {
   float getAveragePrice();
 
   float getAmount();
+
+  @JsonIgnore
+  String getYearAndMonth();
 }

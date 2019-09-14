@@ -1,5 +1,6 @@
 package com.swed.fuelcounter.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
@@ -36,6 +37,7 @@ public class FuelRecord {
 
     @Getter
     @Setter
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Timestamp date;
 
     @Getter
@@ -45,12 +47,12 @@ public class FuelRecord {
     @Transient // needed for AmountDTO grouping
     @Getter
     @Setter
-    @JsonIgnore(true)
+    @JsonIgnore
     private String yearAndMonth;
 
     @Transient // needed for StatisticsDTO grouping
     @Getter
     @Setter
-    @JsonIgnore(true)
+    @JsonIgnore
     private float averagePrice;
 }
