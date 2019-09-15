@@ -1,4 +1,4 @@
-package com.swed.fuelcounter.entity;
+package com.fuelcounter.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;

@@ -1,4 +1,4 @@
-package com.swed.fuelcounter.dto;
+package com.fuelcounter.dto;
 
 public interface AmountDTO {
 

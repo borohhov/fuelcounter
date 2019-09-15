@@ -1,9 +1,9 @@
-package com.swed.fuelcounter.persistence;
+package com.fuelcounter.persistence;
 
-import com.swed.fuelcounter.dto.AmountDTO;
-import com.swed.fuelcounter.entity.FuelRecord;
-import com.swed.fuelcounter.dto.MonthConsumptionDTO;
-import com.swed.fuelcounter.dto.StatisticsDTO;
+import com.fuelcounter.dto.AmountDTO;
+import com.fuelcounter.dto.StatisticsDTO;
+import com.fuelcounter.entity.FuelRecord;
+import com.fuelcounter.dto.MonthConsumptionDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -19,7 +19,7 @@ public interface FuelRecordJpaRepository extends JpaRepository<FuelRecord, Long>
 
     List<FuelRecord> findAllByDriverId(int driverId);
 
-    void deleteByRecordId(String recordId);
+    void deleteByRecordId(String recmordId);
 
     // Using Projections with custom SQL for non-entity requests
 

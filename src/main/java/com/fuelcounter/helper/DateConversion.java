@@ -1,4 +1,4 @@
-package com.swed.fuelcounter.helper;
+package com.fuelcounter.helper;
 
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -9,7 +9,7 @@ import java.time.format.DateTimeParseException;
 
 public class DateConversion {
 
-    public static Timestamp convertDate(String date) throws DateTimeParseException {
+    public static Timestamp convertDateFormat(String date) throws DateTimeParseException {
         //Incoming date is mm.dd.yyyy, we need to translate it for the Date class
         DateTimeFormatter formatter
                 = DateTimeFormatter.ofPattern("MM.dd.uuuu");

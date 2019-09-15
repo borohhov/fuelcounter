@@ -1,67 +1,49 @@
-package com.swed.fuelcounter.controller;
+package com.fuelcounter.controller;
 
-import com.swed.fuelcounter.dto.AmountDTO;
-import com.swed.fuelcounter.dto.MonthConsumptionDTO;
-import com.swed.fuelcounter.dto.StatisticsDTO;
-import com.swed.fuelcounter.entity.*;
-import com.swed.fuelcounter.helper.DateConversion;
-import com.swed.fuelcounter.helper.ResponseChecker;
-import com.swed.fuelcounter.persistence.FuelRecordJpaRepository;
+import com.fuelcounter.dto.AmountDTO;
+import com.fuelcounter.dto.MonthConsumptionDTO;
+import com.fuelcounter.dto.StatisticsDTO;
+import com.fuelcounter.entity.FuelRecord;
+import com.fuelcounter.entity.FuelRecordsList;
+import com.fuelcounter.entity.FuelType;
+import com.fuelcounter.helper.DateConversion;
+import com.fuelcounter.helper.ResponseChecker;
+import com.fuelcounter.persistence.FuelRecordJpaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
-
-import java.security.InvalidParameterException;
 import java.sql.Date;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
 @RestController
-@RequestMapping(value = "/rest/")
+@RequestMapping(value = "/")
 class FuelRecordsController {
-    private final FuelRecordJpaRepository repository;
 
-    public FuelRecordsController(FuelRecordJpaRepository repository) {
-        this.repository = repository;
-    }
-
-    @RequestMapping(value = "/{recordId}", method = RequestMethod.GET)
-    public ResponseEntity<FuelRecord> getRecordById(@PathVariable("recordId") String recordId) {
-        FuelRecord rec = repository.findByRecordId(recordId);
-        if(rec == null) return new ResponseEntity<>(rec, HttpStatus.OK);
-        else return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
+    @Autowired
+    private FuelRecordJpaRepository repository;
 
     @Transactional
-    @RequestMapping(value = "/{recordId}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/records/{recordId}", method = RequestMethod.DELETE)
     public ResponseEntity<String> deleteByRecordId(@PathVariable("recordId") String recordId) {
         ResponseEntity<String> response;
         if (repository.findByRecordId(recordId) != null) {
             repository.deleteByRecordId(recordId);
-            response = new ResponseEntity<>("Deleted", HttpStatus.OK);
+            response = new ResponseEntity<>(HttpStatus.ACCEPTED);
         } else {
-            response = new ResponseEntity<>("Could not find record #" + recordId, HttpStatus.NOT_FOUND);
+            response = new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return response;
     }
 
-    @RequestMapping(value = "/{driverId}/records", method = RequestMethod.GET)
-    public ResponseEntity getRecordsByDriverId(@PathVariable("driverId") int driverId) {
-        List<FuelRecord> records = repository.findAllByDriverId(driverId);
-        return ResponseChecker.validateResponse(String.valueOf(driverId), records);
-    }
-
-    @RequestMapping(value = "/", method = RequestMethod.POST)
-    public FuelRecord addFuelRecord(
+    @RequestMapping(value = "/records", method = RequestMethod.POST)
+    public ResponseEntity<HashMap> addFuelRecord(
             @RequestParam(value = "driverId") int driverId,
             @RequestParam(value = "fuelType") FuelType fuelType,
             @RequestParam(value = "price") float price,
@@ -69,22 +51,29 @@ class FuelRecordsController {
             @RequestParam(value = "date") String date) {
 
 
-        FuelRecord fuelRecord = new FuelRecord().setDriverId(driverId).setFuelType(fuelType).setPrice(price).setVolume(volume).setDate(DateConversion.convertDate(date));
+        FuelRecord fuelRecord = new FuelRecord().setDriverId(driverId).setFuelType(fuelType).setPrice(price).setVolume(volume).setDate(DateConversion.convertDateFormat(date));
         repository.save(fuelRecord);
-        return fuelRecord;
+        HashMap<String, String> map = new HashMap<>();
+        map.put("id", fuelRecord.getRecordId());
+        return new ResponseEntity<>(map, HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/bulk", method = RequestMethod.POST)
-    public ResponseEntity<String> bulkAddFuelRecord(
+    @RequestMapping(value = "/records/bulk", method = RequestMethod.POST)
+    public ResponseEntity<HashMap> bulkAddFuelRecord(
             @RequestBody FuelRecordsList records) {
         repository.saveAll(records.getRecords());
-        return new ResponseEntity<>("Added " + records.getRecords().size() + " records", HttpStatus.OK);
+        HashMap<String, List<String>> map = new HashMap<>();
+        List<String> ids = new ArrayList<>();
+        records.getRecords().forEach(record -> ids.add(record.getRecordId()));
+        map.put("id", ids);
+
+        return new ResponseEntity<>(map, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/amount-by-month", method = RequestMethod.GET)
     public ResponseEntity getAmountByMonth() {
         List<AmountDTO> amounts = repository.sumAmountByMonth();
-        return ResponseChecker.validateResponse("", amounts);
+        return ResponseChecker.validateResponse(amounts);
     }
 
     @RequestMapping(value = "/{driverId}/amount-by-month", method = RequestMethod.GET)
@@ -106,7 +95,7 @@ class FuelRecordsController {
                     HttpStatus.BAD_REQUEST);
         }
         List<MonthConsumptionDTO> records = repository.getConsumptionRecordsByMonth(date);
-        return ResponseChecker.validateResponse(yearAndMonth, records);
+        return ResponseChecker.validateResponse(records);
     }
 
     @RequestMapping(value = "/{driverId}/records-by-month/{month}", method = RequestMethod.GET)

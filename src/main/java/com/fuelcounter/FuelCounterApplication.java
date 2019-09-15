@@ -1,4 +1,4 @@
-package com.swed.fuelcounter;
+package com.fuelcounter;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

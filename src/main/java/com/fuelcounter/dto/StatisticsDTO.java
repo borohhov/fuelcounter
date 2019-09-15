@@ -1,7 +1,7 @@
-package com.swed.fuelcounter.dto;
+package com.fuelcounter.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.swed.fuelcounter.entity.FuelType;
+import com.fuelcounter.entity.FuelType;
 
 public interface StatisticsDTO {
   /* statistics for each month,
