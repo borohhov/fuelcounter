@@ -67,4 +67,5 @@ It is configured to run on port 8080, so you can run it via http://localhost:808
 <ul>
 <li>FuelRecord POJO has 2 fields it does not need to have, but the interface-based projections wouldn't work otherwise. The downside is quite small atm, but if this application grew bigger, the number of such transient fields would grow and cause confusion. 
 <li>Testing can always be better. The API is tested with MockMVC and compared against predefined JSON strings. A more comprehensive testing for critical parts (parsing JSON and comparing Lists against business requests) could be done, but it's not feasible for the current scope</li>
+<li>More generic error handling. The application is small, but the number of possible exceptions is large. Currently handled case by case, but if it would grow, a more comprehensive solution is preferable.
 </ul>
