@@ -49,8 +49,6 @@ It is configured to run on port 8080, so you can run it via http://localhost:808
     
     "GET /{driverId}/amount-by-month"
 
-Homework application.
-
 # Self-assessment
 <ul>
 	<li>RESTful API with JSON payloads in response - <i>YEP</i></li>
