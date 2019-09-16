@@ -48,8 +48,6 @@ class FuelRecordsController {
             @RequestParam(value = "price") float price,
             @RequestParam(value = "volume") float volume,
             @RequestParam(value = "date") String date) {
-
-
         FuelRecord fuelRecord = new FuelRecord().setDriverId(driverId).setFuelType(fuelType).setPrice(price).setVolume(volume).setDate(DateConversion.convertDateFormat(date));
         repository.save(fuelRecord);
         HashMap<String, String> map = new HashMap<>();

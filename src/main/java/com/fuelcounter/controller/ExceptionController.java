@@ -21,7 +21,7 @@ public class ExceptionController implements ErrorController {
         return PATH;
     }
 
-    @RequestMapping(value=PATH, produces="application/json", method = RequestMethod.GET)
+    @RequestMapping(value=PATH, produces="application/json", method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
     public Map<String, Object> handle(HttpServletRequest request) {
         Map<String, Object> map = new HashMap<>();
