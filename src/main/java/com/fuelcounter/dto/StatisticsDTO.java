@@ -1,6 +1,7 @@
 package com.fuelcounter.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fuelcounter.entity.FuelType;
 
 public interface StatisticsDTO {
@@ -14,6 +15,7 @@ public interface StatisticsDTO {
 
   float getAveragePrice();
 
+  @JsonProperty("totalPrice")
   float getAmount();
 
   @JsonIgnore

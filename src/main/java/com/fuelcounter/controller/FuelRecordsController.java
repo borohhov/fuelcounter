@@ -14,7 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import java.sql.Date;
 import java.time.format.DateTimeParseException;
@@ -42,7 +41,7 @@ class FuelRecordsController {
         return response;
     }
 
-    @RequestMapping(value = "/records", method = RequestMethod.POST)
+    @RequestMapping(value = "/record", method = RequestMethod.POST)
     public ResponseEntity<HashMap> addFuelRecord(
             @RequestParam(value = "driverId") int driverId,
             @RequestParam(value = "fuelType") FuelType fuelType,
@@ -58,7 +57,7 @@ class FuelRecordsController {
         return new ResponseEntity<>(map, HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/records/bulk", method = RequestMethod.POST)
+    @RequestMapping(value = "/records", method = RequestMethod.POST)
     public ResponseEntity<HashMap> bulkAddFuelRecord(
             @RequestBody FuelRecordsList records) {
         repository.saveAll(records.getRecords());

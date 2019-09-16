@@ -3,6 +3,7 @@ package com.fuelcounter.controller;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +21,7 @@ public class ExceptionController implements ErrorController {
         return PATH;
     }
 
-    @RequestMapping(value=PATH, produces="application/json")
+    @RequestMapping(value=PATH, produces="application/json", method = RequestMethod.GET)
     @ResponseBody
     public Map<String, Object> handle(HttpServletRequest request) {
         Map<String, Object> map = new HashMap<>();

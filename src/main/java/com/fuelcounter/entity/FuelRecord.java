@@ -9,6 +9,7 @@ import lombok.experimental.Accessors;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
+import java.util.Objects;
 
 @Entity
 @Accessors(chain = true)
@@ -55,4 +56,21 @@ public class FuelRecord {
     @Setter
     @JsonIgnore
     private float averagePrice;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        FuelRecord that = (FuelRecord) o;
+        return Float.compare(that.price, price) == 0 &&
+                Float.compare(that.volume, volume) == 0 &&
+                driverId == that.driverId &&
+                fuelType == that.fuelType &&
+                date.equals(that.date);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(fuelType, price, volume, date, driverId);
+    }
 }

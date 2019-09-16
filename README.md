@@ -7,8 +7,12 @@ Build via your favourite tools and run the file via "java -jar <<filename>filena
 It is configured to run on port 8080, so you can run it via http://localhost:8080
 
 # Endpoints
+    
+    "POST /record",
+    Single entry addition via URI parameters, example:
+    /rest/records?driverId=1234&price=15&volume=20&date=12.11.2010&fuelType=PETROL_98
 
-    "POST /records/bulk",
+    "POST /records",
     Bulk data entry, use JSON in Body. Example:
     {
     "records": [
@@ -27,27 +31,30 @@ It is configured to run on port 8080, so you can run it via http://localhost:808
             "driverId": 1234
         }
     ]
-}
-
-    "GET /records-by-month/{month}",
-    Month format: YYYY-MM, example: 2019-10
-    "GET /statistics",
-    
-    "GET /{driverId}/records-by-month/{month}",
-    driverId is integer, Month format: YYYY-MM, example: 2019-10
-    
-    "GET /{driverId}/statistics",
-    driverId is integer
+    }
     
     "DELETE /records/{recordId}",
+
+    "GET /records-by-month/{month}",
+    •	list fuel consumption records for specified month
+    Month format: YYYY-MM, example: 2019-10
+
+    "GET /{driverId}/records-by-month/{month}",
+    list fuel consumption records for specified month
+    driverId is integer, Month format: YYYY-MM, example: 2019-10
     
-    "POST /records",
-    Single entry addition via URI parameters, example:
-    /rest/records?driverId=1234&price=15&volume=20&date=12.11.2010&fuelType=PETROL_98
+    "GET /statistics",
+    statistics for each month, list fuel consumption records grouped by fuel type 
+    
+    "GET /{driverId}/statistics",
+    statistics for each month, list fuel consumption records grouped by fuel type  for driver
+    driverId is integer 
     
     "GET /amount-by-month",
+    total spent amount of money grouped by month
     
     "GET /{driverId}/amount-by-month"
+    total spent amount of money grouped by month for driver 
 
 # Self-assessment
 <ul>
@@ -55,7 +62,7 @@ It is configured to run on port 8080, so you can run it via http://localhost:808
   
 <li>Language: Java/Kotlin - <i>Java</i></li>
 <li>Frameworks: You can use any framework (preferably Spring boot) but keep in mind that usage of framework should be reasonable and architecture of application should allow to switch frameworks.
-<p><i>Designing this application with most logic decoupled from Spring would be break the KISS principle - Spring and then switching to something else.Spring JPA and Spring @Controller used. Switching frameworks is possible with switching a JPA provider with little hassle. Switching the provider for API is more work, but at the same time it's just one class. </i><p></li>
+<p><i>Designing this application with most logic decoupled from Spring would be break the KISS principle - rather use Spring and then switching to something else.Spring JPA and Spring @Controller used. Switching frameworks is possible with switching a JPA provider with little hassle. Switching the provider for API is more work, but at the same time it's just one class. </i><p></li>
 
 <li>Use Gradle or Maven (use dependencies from public repositories) - <i>Maven</i></li>
 <li>Unit tests at least for business logic(use any framework of your choice) - <i>used Mockito and JUnit</i> </li>

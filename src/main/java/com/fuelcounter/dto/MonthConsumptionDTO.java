@@ -1,6 +1,7 @@
 package com.fuelcounter.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fuelcounter.entity.FuelType;
 
 import java.sql.Timestamp;
@@ -17,6 +18,7 @@ public interface MonthConsumptionDTO {
 
     float getPrice();
 
+    @JsonProperty("totalPrice")
     float getAmount();
 
     int getDriverId();

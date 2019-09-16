@@ -17,9 +17,7 @@ public interface FuelRecordJpaRepository extends JpaRepository<FuelRecord, Long>
 
     FuelRecord findByRecordId(String recordId);
 
-    List<FuelRecord> findAllByDriverId(int driverId);
-
-    void deleteByRecordId(String recmordId);
+    void deleteByRecordId(String recordId);
 
     // Using Projections with custom SQL for non-entity requests
 
