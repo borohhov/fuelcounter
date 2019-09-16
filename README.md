@@ -56,7 +56,7 @@ It is configured to run on port 8080, so you can run it via http://localhost:808
     "GET /{driverId}/amount-by-month"
     total spent amount of money grouped by month for driver 
 
-# Self-assessment
+# Assessment vs Requirements
 <ul>
 	<li>RESTful API with JSON payloads in response - <i>YEP</i></li>
   
@@ -70,6 +70,7 @@ It is configured to run on port 8080, so you can run it via http://localhost:808
 <li>Write production-ready code (clean, modular, testable) - <i>hope so, see Technical Debt below</i></li>
 <li>Apply object oriented design principles</li>
 </ul>
+
 # Technical Debt
 <ul>
 <li>FuelRecord POJO has 2 fields it does not need to have, but the interface-based projections wouldn't work otherwise. The downside is quite small atm, but if this application grew bigger, the number of such transient fields would grow and cause confusion. 
