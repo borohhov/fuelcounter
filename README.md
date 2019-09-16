@@ -8,11 +8,11 @@ It is configured to run on port 8080, so you can run it via http://localhost:808
 
 # Endpoints
     
-    "POST /record",
+    "POST /rest/record",
     Single entry addition via URI parameters, example:
     /rest/records?driverId=1234&price=15&volume=20&date=12.11.2010&fuelType=PETROL_98
 
-    "POST /records",
+    "POST /rest/records",
     Bulk data entry, use JSON in Body. Example:
     {
     "records": [
@@ -33,27 +33,27 @@ It is configured to run on port 8080, so you can run it via http://localhost:808
     ]
     }
     
-    "DELETE /records/{recordId}",
+    "DELETE /rest/records/{recordId}",
 
-    "GET /records-by-month/{month}",
+    "GET /rest/records-by-month/{month}",
     list fuel consumption records for specified month
     Month format: YYYY-MM, example: 2019-10
 
-    "GET /{driverId}/records-by-month/{month}",
+    "GET /rest/{driverId}/records-by-month/{month}",
     list fuel consumption records for specified month
     driverId is integer, Month format: YYYY-MM, example: 2019-10
     
-    "GET /statistics",
+    "GET /rest/statistics",
     statistics for each month, list fuel consumption records grouped by fuel type 
     
-    "GET /{driverId}/statistics",
+    "GET /rest/{driverId}/statistics",
     statistics for each month, list fuel consumption records grouped by fuel type  for driver
     driverId is integer 
     
-    "GET /amount-by-month",
+    "GET /rest/amount-by-month",
     total spent amount of money grouped by month
     
-    "GET /{driverId}/amount-by-month"
+    "GET /rest/{driverId}/amount-by-month"
     total spent amount of money grouped by month for driver 
 
 # Assessment vs Requirements
