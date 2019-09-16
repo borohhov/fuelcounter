@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
-public class ResponseChecker {
+public class EmptyResultChecker {
 
     public static <T> ResponseEntity validateResponse(List<T> recordsList){
         ResponseEntity responseEntity;

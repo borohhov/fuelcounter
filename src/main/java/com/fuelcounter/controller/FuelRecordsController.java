@@ -7,7 +7,7 @@ import com.fuelcounter.entity.FuelRecord;
 import com.fuelcounter.entity.FuelRecordsList;
 import com.fuelcounter.entity.FuelType;
 import com.fuelcounter.helper.DateConversion;
-import com.fuelcounter.helper.ResponseChecker;
+import com.fuelcounter.helper.EmptyResultChecker;
 import com.fuelcounter.persistence.FuelRecordJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -72,7 +72,7 @@ class FuelRecordsController {
     @RequestMapping(value = "/amount-by-month", method = RequestMethod.GET)
     public ResponseEntity getAmountByMonth() {
         List<AmountDTO> amounts = repository.sumAmountByMonth();
-        return ResponseChecker.validateResponse(amounts);
+        return EmptyResultChecker.validateResponse(amounts);
     }
 
     @RequestMapping(value = "/{driverId}/amount-by-month", method = RequestMethod.GET)
@@ -94,7 +94,7 @@ class FuelRecordsController {
                     HttpStatus.BAD_REQUEST);
         }
         List<MonthConsumptionDTO> records = repository.getConsumptionRecordsByMonth(date);
-        return ResponseChecker.validateResponse(records);
+        return EmptyResultChecker.validateResponse(records);
     }
 
     @RequestMapping(value = "/{driverId}/records-by-month/{month}", method = RequestMethod.GET)
