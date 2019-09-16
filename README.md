@@ -1,4 +1,4 @@
-# fuelco
+# fuelcounter
 
 
 # How to run
