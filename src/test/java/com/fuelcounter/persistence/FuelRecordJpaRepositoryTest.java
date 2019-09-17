@@ -25,13 +25,13 @@ public class FuelRecordJpaRepositoryTest {
     @Autowired
     FuelRecordJpaRepository repository;
 
-    private static final int driverId = 123103515;
+    private static final int DRIVER_ID = 123103515;
 
 
     private List<FuelRecord> initialData(){
         List<FuelRecord> records = new ArrayList<>(2);
-        records.add(new FuelRecord().setDate(Timestamp.valueOf("2019-01-02 12:00:00")).setPrice(10.0f).setVolume(20.5f).setFuelType(FuelType.DIESEL).setDriverId(driverId));
-        records.add(new FuelRecord().setDate(Timestamp.valueOf("2019-01-06 12:00:00")).setPrice(10.0f).setVolume(20.5f).setFuelType(FuelType.PETROL_95).setDriverId(driverId));
+        records.add(new FuelRecord().setDate(Timestamp.valueOf("2019-01-02 12:00:00")).setPrice(10.0f).setVolume(20.5f).setFuelType(FuelType.DIESEL).setDriverId(DRIVER_ID));
+        records.add(new FuelRecord().setDate(Timestamp.valueOf("2019-01-06 12:00:00")).setPrice(10.0f).setVolume(20.5f).setFuelType(FuelType.PETROL_95).setDriverId(DRIVER_ID));
         return records;
     }
 
@@ -65,7 +65,7 @@ public class FuelRecordJpaRepositoryTest {
     @Test
     public void sumAmountByMonthAndDriver() {
         repository.saveAll(initialData());
-        List<AmountDTO> amounts = repository.sumAmountByMonthAndDriver(driverId);
+        List<AmountDTO> amounts = repository.sumAmountByMonthAndDriver(DRIVER_ID);
         assertEquals(1, amounts.size());
         assertEquals("2019-01", amounts.get(0).getYearAndMonth());
         assertEquals(410f, amounts.get(0).getAmount(),0.0f);

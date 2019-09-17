@@ -34,6 +34,12 @@ public class ExceptionController implements ErrorController {
                 .contains("Failed to convert value of type 'java.lang.String' to required type 'com.fuelcounter.entity.FuelType'")){
             map.put("analysis", "Valid FuelType: PETROL_95, PETROL_98, DIESEL");
         }
+        map.put("help", "Single record POST /rest/record must have the following URI parameters: " +
+                "/rest/records?driverId=INTEGER&price=FLOAT&volume=FLOAT&date=MM.DD.YYYY&fuelType=PETROL_98/PETROL_95/DIESEL " +
+                "Example:" +
+                "/rest/records?driverId=1234&price=15&volume=20&date=12.11.2010&fuelType=PETROL_98" +
+                "Multiple entry POST /rest/records must have the JSON string in the request body like the example:" +
+                "{\"records\":[{\"fuelType\": \"PETROL_95\",\"price\": 15,\"volume\": 22,\"date\": \"2015-12-10\",\"driverId\": 1234},{\"fuelType\": \"PETROL_95\",\"price\": 15.3,\"volume\": 20.9,\"date\": \"2012-12-0\",\"driverId\": 1234}]}");
         return map;
     }
 
